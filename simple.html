@@ -1,17 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
+    <meta charset="UTF-8">
+    <title>Simple Website</title>
     <style>
-        /* CSS from your second slide */
+        /* CSS lấy từ slide hướng dẫn của bạn */
         body {
             margin: 0;
             padding: 0;
-            background: #ccc;
+            background: #ccc; /* Màu nền xám trung tính */
+            font-family: Arial, sans-serif;
         }
 
         nav#topmenu ul {
             list-style: none;
-            background-color: #444;
+            background-color: #444; /* Màu nền thanh menu */
             text-align: center;
             padding: 0;
             margin: 0;
@@ -27,12 +30,37 @@
 
         nav#topmenu a {
             text-decoration: none;
-            color: #fff;
+            color: #fff; /* Màu chữ trắng */
         }
 
-        /* Added a small hover effect for a better feel */
-        nav#topmenu a:hover {
-            text-decoration: underline;
+        /* Phần CSS bổ sung để căn chỉnh nội dung chữ bên dưới */
+        .content {
+            padding: 40px;
+            max-width: 900px;
+            margin: 0 auto; /* Căn giữa khối nội dung */
+        }
+
+        .blog-post {
+            margin-bottom: 30px;
+        }
+
+        .blog-post h2 {
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .blog-post p.meta {
+            font-style: italic;
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #999;
+            margin-top: 50px;
         }
     </style>
 </head>
@@ -47,6 +75,24 @@
             <li><a href="#">Contact</a></li>
         </ul>
     </nav>
+
+    <div class="content">
+        <div class="blog-post">
+            <h2>Just Another Day</h2>
+            <p class="meta">Written by Christina on January 12th</p>
+            <p>This is my second blog entry, and I just wanted to check in on you.</p>
+        </div>
+
+        <div class="blog-post">
+            <h2>My First Blog Entry</h2>
+            <p class="meta">Written by Christina on January 10th</p>
+            <p>I'm so happy to write my first blog entry - yay!</p>
+        </div>
+
+        <footer>
+            &copy; Copyright 2009 Your name
+        </footer>
+    </div>
 
 </body>
 </html>
