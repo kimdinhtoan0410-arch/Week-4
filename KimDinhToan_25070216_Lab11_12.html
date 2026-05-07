@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <title>Bài Tập JavaScript - Kim Đình Toàn</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; padding: 20px; color: #333; }
+        .wrapper { max-width: 950px; margin: auto; background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        h1 { text-align: center; color: #2e7d32; text-transform: uppercase; border-bottom: 2px solid #2e7d32; padding-bottom: 10px; }
+        h2 { color: #1565c0; margin-top: 40px; font-size: 1.3em; display: flex; align-items: center; }
+        h2::before { content: "➤"; margin-right: 10px; }
+        .box { padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px; background: #fafafa; margin-top: 15px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 15px; }
+        .calc-table td { padding: 10px; }
+        .multi-grid td { border: 1px solid #ddd; padding: 12px; vertical-align: top; background: white; border-radius: 4px; }
+        input, select, button { padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 6px; outline: none; }
+        button { background-color: #2e7d32; color: white; cursor: pointer; border: none; font-weight: bold; transition: 0.3s; }
+        button:hover { background-color: #1b5e20; transform: translateY(-2px); }
+        .output { font-weight: bold; color: #c62828; margin-top: 10px; padding: 5px; }
+    </style>
+
+    <script>
+        // --- BÀI TẬP BỔ SUNG (EXTRA) ---
+        function tinhHinhChuNhat() {
+            let d = parseFloat(document.getElementById('chieu_dai').value);
+            let r = parseFloat(document.getElementById('chieu_rong').value);
+            if(!isNaN(d) && !isNaN(r)) {
+                let cv = (d + r) * 2;
+                let dt = d * r;
+                document.getElementById('kq_hcn').innerHTML = `Kết quả: Chu vi = ${cv} | Diện tích = ${dt}`;
+            }
+        }
+
+        function tinhHinhTron() {
+            let r = parseFloat(document.getElementById('ban_kinh').value);
+            if(!isNaN(r)) {
+                const PI = 3.14;
+                let cv = 2 * PI * r;
+                let dt = PI * r * r;
+                document.getElementById('kq_ht').innerHTML = `Kết quả: Chu vi = ${cv.toFixed(2)} | Diện tích = ${dt.toFixed(2)}`;
+            }
+        }
+
+        // --- BÀI 3: DATES IN MONTH ---
+        function laNamNhuan(y) {
+            return (y % 4 == 0 && y % 100 != 0) || (y % 400 == 0);
+        }
+
+        function xuLySoNgay() {
+            let form = document.frmDates;
+            let nam = parseInt(form.txtYear.value);
+            let thang = form.selMonth.value;
+            let oKetQua = form.txtResult;
+
+            if (isNaN(nam)) {
+                oKetQua.value = "Nhập năm hợp lệ!";
+                return;
+            }
+
+            switch (thang) {
+                case "1": case "3": case "5": case "7": case "8": case "10": case "12":
+                    oKetQua.value = 31;
+                    break;
+                case "4": case "6": case "9": case "11":
+                    oKetQua.value = 30;
+                    break;
+                case "2":
+                    oKetQua.value = laNamNhuan(nam) ? 29 : 28;
+                    break;
+            }
+        }
+    </script>
+</head>
+<body onload="xuLySoNgay()">
+
+<div class="wrapper">
+    <h1>BÁO CÁO THỰC HÀNH - TOÀN</h1>
+    <p style="text-align: center;"><strong>Sinh viên:</strong> Kim Đình Toàn | <strong>MSSV:</strong> 25070216</p>
+
+    <h2>Bài tập bổ sung: Tính toán hình học</h2>
+    <div class="box">
+        <strong>a. Hình chữ nhật</strong><br>
+        <input type="number" id="chieu_dai" placeholder="Chiều dài">
+        <input type="number" id="chieu_rong" placeholder="Chiều rộng">
+        <button onclick="tinhHinhChuNhat()">Tính toán</button>
+        <div id="kq_hcn" class="output"></div>
+        <hr>
+        <strong>b. Hình tròn (π = 3.14)</strong><br>
+        <input type="number" id="ban_kinh" placeholder="Bán kính">
+        <button onclick="tinhHinhTron()">Tính toán</button>
+        <div id="kq_ht" class="output"></div>
+    </div>
+
+    <h2>Bài 3: Tính số ngày trong tháng</h2>
+    <div class="box">
+        <form name="frmDates">
+            <table class="calc-table" style="width: auto;">
+                <tr>
+                    <td>Nhập Năm:</td>
+                    <td><input type="text" name="txtYear" value="2026" onblur="xuLySoNgay()"></td>
+                </tr>
+                <tr>
+                    <td>Chọn Tháng:</td>
+                    <td>
+                        <select name="selMonth" onchange="xuLySoNgay()">
+                            <script>
+                                for(let i=1; i<=12; i++) 
+                                    document.write(`<option value="${i}">Tháng ${i < 10 ? '0'+i : i}</option>`);
+                            </script>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Số ngày là:</td>
+                    <td><input type="text" name="txtResult" readonly style="background:#e9ecef; border: 1px dashed #999;"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <h2>Bài 5: Bảng cửu chương tự động</h2>
+    <div class="box">
+        <table class="multi-grid">
+            <script>
+                document.write("<tr>");
+                for (let i = 2; i <= 9; i++) {
+                    document.write("<td><strong style='color:#1565c0'>Bảng nhân " + i + "</strong><br><br>");
+                    for (let j = 1; j <= 10; j++) {
+                        document.write(`${i} x ${j} = ${i * j}<br>`);
+                    }
+                    document.write("</td>");
+                    if (i == 5) document.write("</tr><tr>");
+                }
+                document.write("</tr>");
+            </script>
+        </table>
+    </div>
+</div>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <title>Bài Tập JavaScript - Kim Đình Toàn</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; padding: 20px; color: #333; }
+        .wrapper { max-width: 950px; margin: auto; background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        h1 { text-align: center; color: #2e7d32; text-transform: uppercase; border-bottom: 2px solid #2e7d32; padding-bottom: 10px; }
+        h2 { color: #1565c0; margin-top: 40px; font-size: 1.3em; display: flex; align-items: center; }
+        h2::before { content: "➤"; margin-right: 10px; }
+        .box { padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px; background: #fafafa; margin-top: 15px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 15px; }
+        .calc-table td { padding: 10px; }
+        .multi-grid td { border: 1px solid #ddd; padding: 12px; vertical-align: top; background: white; border-radius: 4px; }
+        input, select, button { padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 6px; outline: none; }
+        button { background-color: #2e7d32; color: white; cursor: pointer; border: none; font-weight: bold; transition: 0.3s; }
+        button:hover { background-color: #1b5e20; transform: translateY(-2px); }
+        .output { font-weight: bold; color: #c62828; margin-top: 10px; padding: 5px; }
+    </style>
+
+    <script>
+        // --- BÀI TẬP BỔ SUNG (EXTRA) ---
+        function tinhHinhChuNhat() {
+            let d = parseFloat(document.getElementById('chieu_dai').value);
+            let r = parseFloat(document.getElementById('chieu_rong').value);
+            if(!isNaN(d) && !isNaN(r)) {
+                let cv = (d + r) * 2;
+                let dt = d * r;
+                document.getElementById('kq_hcn').innerHTML = `Kết quả: Chu vi = ${cv} | Diện tích = ${dt}`;
+            }
+        }
+
+        function tinhHinhTron() {
+            let r = parseFloat(document.getElementById('ban_kinh').value);
+            if(!isNaN(r)) {
+                const PI = 3.14;
+                let cv = 2 * PI * r;
+                let dt = PI * r * r;
+                document.getElementById('kq_ht').innerHTML = `Kết quả: Chu vi = ${cv.toFixed(2)} | Diện tích = ${dt.toFixed(2)}`;
+            }
+        }
+
+        // --- BÀI 3: DATES IN MONTH ---
+        function laNamNhuan(y) {
+            return (y % 4 == 0 && y % 100 != 0) || (y % 400 == 0);
+        }
+
+        function xuLySoNgay() {
+            let form = document.frmDates;
+            let nam = parseInt(form.txtYear.value);
+            let thang = form.selMonth.value;
+            let oKetQua = form.txtResult;
+
+            if (isNaN(nam)) {
+                oKetQua.value = "Nhập năm hợp lệ!";
+                return;
+            }
+
+            switch (thang) {
+                case "1": case "3": case "5": case "7": case "8": case "10": case "12":
+                    oKetQua.value = 31;
+                    break;
+                case "4": case "6": case "9": case "11":
+                    oKetQua.value = 30;
+                    break;
+                case "2":
+                    oKetQua.value = laNamNhuan(nam) ? 29 : 28;
+                    break;
+            }
+        }
+    </script>
+</head>
+<body onload="xuLySoNgay()">
+
+<div class="wrapper">
+    <h1>BÁO CÁO THỰC HÀNH - TOÀN</h1>
+    <p style="text-align: center;"><strong>Sinh viên:</strong> Kim Đình Toàn | <strong>MSSV:</strong> 25070216</p>
+
+    <h2>Bài tập bổ sung: Tính toán hình học</h2>
+    <div class="box">
+        <strong>a. Hình chữ nhật</strong><br>
+        <input type="number" id="chieu_dai" placeholder="Chiều dài">
+        <input type="number" id="chieu_rong" placeholder="Chiều rộng">
+        <button onclick="tinhHinhChuNhat()">Tính toán</button>
+        <div id="kq_hcn" class="output"></div>
+        <hr>
+        <strong>b. Hình tròn (π = 3.14)</strong><br>
+        <input type="number" id="ban_kinh" placeholder="Bán kính">
+        <button onclick="tinhHinhTron()">Tính toán</button>
+        <div id="kq_ht" class="output"></div>
+    </div>
+
+    <h2>Bài 3: Tính số ngày trong tháng</h2>
+    <div class="box">
+        <form name="frmDates">
+            <table class="calc-table" style="width: auto;">
+                <tr>
+                    <td>Nhập Năm:</td>
+                    <td><input type="text" name="txtYear" value="2026" onblur="xuLySoNgay()"></td>
+                </tr>
+                <tr>
+                    <td>Chọn Tháng:</td>
+                    <td>
+                        <select name="selMonth" onchange="xuLySoNgay()">
+                            <script>
+                                for(let i=1; i<=12; i++) 
+                                    document.write(`<option value="${i}">Tháng ${i < 10 ? '0'+i : i}</option>`);
+                            </script>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Số ngày là:</td>
+                    <td><input type="text" name="txtResult" readonly style="background:#e9ecef; border: 1px dashed #999;"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <h2>Bài 5: Bảng cửu chương tự động</h2>
+    <div class="box">
+        <table class="multi-grid">
+            <script>
+                document.write("<tr>");
+                for (let i = 2; i <= 9; i++) {
+                    document.write("<td><strong style='color:#1565c0'>Bảng nhân " + i + "</strong><br><br>");
+                    for (let j = 1; j <= 10; j++) {
+                        document.write(`${i} x ${j} = ${i * j}<br>`);
+                    }
+                    document.write("</td>");
+                    if (i == 5) document.write("</tr><tr>");
+                }
+                document.write("</tr>");
+            </script>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
