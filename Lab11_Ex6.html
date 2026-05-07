@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <title>Lab 11 - Exercise 6: Regular Expression and Eval</title>
+    <script language="javascript">
+        function calculate() {
+            // Lấy giá trị từ các ô input thông qua tên form 'f'
+            var num1 = document.f.num1.value;
+            var num2 = document.f.num2.value;
+            var op = document.f.operator.value;
+            var resField = document.f.result;
+
+            // 1. Định nghĩa Regular Expression (Biểu thức chính quy)
+            // Kiểm tra số (chấp nhận số âm và số thập phân)
+            var numReg = /^-?\d*\.?\d+$/;
+            // Kiểm tra toán tử (+, -, *, /, %)
+            var opReg = /^[\+\-\*\/\%]$/;
+
+            // 2. Kiểm tra tính hợp lệ của dữ liệu đầu vào
+            if (!numReg.test(num1) || !numReg.test(num2)) {
+                alert("Vui lòng nhập số hợp lệ vào hai ô trống!");
+                resField.value = "";
+                return;
+            }
+
+            if (!opReg.test(op)) {
+                alert("Toán tử không hợp lệ! Chỉ dùng: +, -, *, /, %");
+                resField.value = "";
+                return;
+            }
+
+            // 3. Sử dụng hàm eval() để tính toán kết quả
+            try {
+                var expression = num1 + op + num2;
+                var result = eval(expression);
+                
+                // Hiển thị kết quả vào textbox
+                resField.value = result;
+            } catch (error) {
+                resField.value = "Lỗi biểu thức";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div style="margin-top: 50px;">
+        <form name="f">
+            <table border="1" align="center" cellpadding="10" style="border-collapse: collapse; background-color: #f9f9f9;">
+                <tr>
+                    <th colspan="2" style="background-color: #e0e0e0;">
+                        <h3>BASIC CALCULATOR</h3>
+                    </th>
+                </tr>
+                <tr>
+                    <td align="right">Enter First Number:</td>
+                    <td><input type="text" name="num1" size="15"></td>
+                </tr>
+                <tr>
+                    <td align="right">Enter Operator (+, -, *, /, %):</td>
+                    <td><input type="text" name="operator" size="5" style="text-align: center;"></td>
+                </tr>
+                <tr>
+                    <td align="right">Enter Second Number:</td>
+                    <td><input type="text" name="num2" size="15"></td>
+                </tr>
+                <tr>
+                    <td align="right"><b>Result:</b></td>
+                    <td>
+                        <input type="text" name="result" size="20" readonly 
+                               style="background-color: #ffffcc; font-weight: bold; color: blue;">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="button" value="Calculate" onclick="calculate()" 
+                               style="padding: 5px 20px; cursor: pointer;">
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <p align="center" style="font-size: 12px; color: gray;">Figure 11.6: Calculator using Regex and Eval</p>
+    </div>
+</body>
+</html>
